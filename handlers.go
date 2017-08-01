@@ -18,26 +18,50 @@ func programs_post(c *gin.Context) {
 
 func programs_delete(c *gin.Context) {
 	program_name := c.Params.ByName("name")
+	println(program_name)
+	c.JSON(200, gin.H{
+		"message": program_name,
+	})
 }
 
 func programs_put(c *gin.Context) {
 	program_name := c.Params.ByName("name")
+	println(program_name)
+	c.JSON(200, gin.H{
+		"message": program_name,
+	})
 }
 
 func programs_get(c *gin.Context) {
 	program_name := c.Params.ByName("name")
+	println(program_name)
+	c.JSON(200, gin.H{
+		"message": program_name,
+	})
 }
 
 func programs_status(c *gin.Context) {
 	program_name := c.Params.ByName("name")
+	println(program_name)
+	c.JSON(200, gin.H{
+		"message": program_name,
+	})
 }
 
 func programs_start(c *gin.Context) {
 	program_name := c.Params.ByName("name")
+	println(program_name)
+	c.JSON(200, gin.H{
+		"message": program_name,
+	})
 }
 
 func programs_stop(c *gin.Context) {
 	program_name := c.Params.ByName("name")
+	println(program_name)
+	c.JSON(200, gin.H{
+		"message": program_name,
+	})
 }
 
 func socketio_conn(so socketio.Socket) {

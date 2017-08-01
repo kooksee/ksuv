@@ -3,47 +3,107 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"os"
-	"log"
 	"os/signal"
 	"syscall"
 	"fmt"
 	"time"
-	"github.com/googollee/go-socket.io"
+	"github.com/shirou/gopsutil/mem"
+	"github.com/shirou/gopsutil/disk"
+	"strconv"
+	"github.com/shirou/gopsutil/process"
+	"github.com/fatedier/frp/utils/log"
+	"os/exec"
+	"bufio"
 )
+
+func printUsage(u *disk.UsageStat) {
+	fmt.Println(u.Path + "\t" + strconv.FormatFloat(u.UsedPercent, 'f', 2, 64) + "% full.")
+	fmt.Println("Total: " + strconv.FormatUint(u.Total / 1024 / 1024 / 1024, 10) + " GiB")
+	fmt.Println("Free:  " + strconv.FormatUint(u.Free / 1024 / 1024 / 1024, 10) + " GiB")
+	fmt.Println("Used:  " + strconv.FormatUint(u.Used / 1024 / 1024 / 1024, 10) + " GiB")
+}
+
+func check(err error) {
+	if err != nil {
+		panic(err)
+	}
+}
 
 func main() {
 
+	//runtime.GOMAXPROCS(runtime.NumCPU())
+
 	r := gin.New()
-	server, err := socketio.NewServer(nil)
-	if err != nil {
-		log.Fatal(err)
-	}
-	server.On("connection", socketio_conn)
-	server.On("error", socketio_error)
-
-
 
 	// Global middleware
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 
-	r.GET("/ping", ping)
-	r.POST("/command", ping)
-	r.POST("/api/programs", programs_post)
-	r.GET("/api/programs/:name", programs_get)
-	r.GET("/api/programs/:name/ping", programs_status)
-	r.GET("/api/programs/:name/status", programs_status)
-	r.POST("/api/programs/:name/start", programs_start)
-	r.POST("/api/programs/:name/stop", programs_stop)
-	r.PUT("/api/programs/:name", programs_put)
-	r.DELETE("/api/programs/:name", programs_delete)
-
-	r.GET("/socket.io/", func(c *gin.Context) {
-		server.ServeHTTP(c.Writer, c.Request)
-	})
+	init_urls(r)
 
 	sigs := make(chan os.Signal, 1)
 	done := make(chan bool, 100)
+
+	t1 := time.Now().UnixNano()
+	fmt.Println(t1)
+
+	go func() {
+		cmd := exec.Command("locate", "py")
+
+		stdout, _ := cmd.StdoutPipe()
+		cmd.Start()
+		r := bufio.NewReader(stdout)
+
+		p := cmd.Process
+		fmt.Println(p.Pid)
+
+		//ticker := time.NewTicker(time.Millisecond * 500)
+		//defer ticker.Stop()
+
+
+		for {
+			line, _, _ := r.ReadLine()
+
+			if len(line) > 0 {
+				fmt.Println(string(line))
+				time.Sleep(time.Microsecond)
+				fmt.Println("ok")
+			} else {
+				fmt.Println("没有数据,睡2秒")
+				time.Sleep(time.Second * 2)
+			}
+
+		}
+		//for {
+		//select {
+		//case <-ticker.C:
+
+		//line, _, _ := r.ReadLine()
+		//fmt.Println(string(line))
+		//fmt.Println("ok")
+
+		//for i := range line {
+		//	fmt.Println(string(i))
+		//	fmt.Println("ok\n")
+		//}
+
+		//}
+		//}
+
+	}()
+
+	fmt.Println(os.Getpid())
+
+	p, err := process.NewProcess(int32(os.Getpid()))
+
+	fmt.Println(p.Name())
+	fmt.Println(p.Ppid())
+
+	children, err := p.Children()
+	for i := range children {
+		fmt.Println(i)
+		fmt.Println("ok\n")
+	}
 
 
 	// `signal.Notify` registers the given channel to
@@ -56,6 +116,9 @@ func main() {
 		sig := <-sigs
 		fmt.Println()
 		fmt.Println(sig)
+		fmt.Println("退出程序")
+		log.Info("退出程序")
+
 		//done <- true
 		os.Exit(0)
 	}()
@@ -76,9 +139,27 @@ func main() {
 		}
 	}()
 
+	v, _ := mem.VirtualMemory()
+
+	// almost every return value is a struct
+	fmt.Printf("Total: %v, Free:%v, UsedPercent:%f%%\n", v.Total, v.Free, v.UsedPercent)
+
+	// convert to JSON. String() is also implemented
+	fmt.Println(v)
+
+	parts, err := disk.Partitions(false)
+	check(err)
+
+	var usage []*disk.UsageStat
+
+	for _, part := range parts {
+		u, err := disk.Usage(part.Mountpoint)
+		check(err)
+		usage = append(usage, u)
+		printUsage(u)
+	}
+
 	r.Run() // listen and serve on 0.0.0.0:8080
-
-
 }
 
 
