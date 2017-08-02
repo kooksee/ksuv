@@ -15,3 +15,5 @@ import:
 - package: github.com/golang/protobuf
   subpackages:
   - proto
+- package: github.com/jinzhu/gorm
+  version: ~1.0.0

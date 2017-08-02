@@ -17,50 +17,71 @@ func init_urls(r *gin.Engine) {
 	r.GET("/", ping)
 	r.GET("/ping", ping)
 
-	// 服务操作
-	// 添加服务
+	// 服务资源操作
+	// 添加多个服务资源
 	r.POST("/api/programs", programs_post)
 
-	// 修改服务信息
+	// 修改多个服务的信息
+	r.PUT("/api/programs", programs_put)
+
+	// 修改单个服务的信息
 	r.PUT("/api/programs/:name", programs_put)
 
-	// 根据服务名称获取服务信息
+	// 获取多个服务信息
+	r.GET("/api/programs", programs_get)
+
+	// 根据服务名称获取单个服务信息
 	r.GET("/api/programs/:name", programs_get)
 
-	// 删除服务
+	// 删除多个服务资源
+	r.DELETE("/api/programs", programs_delete)
+
+	// 删除单个服务资源
 	r.DELETE("/api/programs/:name", programs_delete)
 
-	// 获取服务的存活状态
-	r.GET("/api/programs/:name/ping", programs_status)
-
-	// 获取服务的进程,IO,CPU使用等信息
-	r.GET("/api/programs/:name/status", programs_status)
-
-	// 创建启动服务
-	r.POST("/api/programs/:name", programs_start)
+	// 服务操作
+	// 创建启动服务的session
+	r.POST("/api/programs/:name/sessions", programs_service_post)
 
 	// 获得服务的运行结果
-	r.GET("/api/programs/:name/:id", programs_start)
+	r.GET("/api/programs/sessions", programs_service_get)
+
+	// 获得服务的运行结果
+	r.GET("/api/programs/sessions/:id", programs_service_get)
+
+	// 查看所有服务的运行状态
+	r.GET("/api/programs/sessions/ping", programs_service_ping)
 
 	// 查看当前服务的运行状态
-	r.GET("/api/programs/:name/:id/ping", programs_start)
+	r.GET("/api/programs/sessions/:id/ping", programs_service_ping)
 
-	// 查看当前服务的运行监控信息
-	r.GET("/api/programs/:name/:id/status", programs_start)
+	// 查看所有服务的运行监控信息
+	r.GET("/api/programs/sessions/status", programs_service_status)
 
 	// 暂停服务
-	r.DELETE("/api/programs/:name/:id", programs_stop)
+	r.DELETE("/api/programs/sessions", programs_service_delete)
 
+	// 暂停服务
+	r.DELETE("/api/programs/sessions/:id", programs_service_delete)
 
 	// 服务日志操作
-	// 根据时间戳获取日志信息
-	r.GET("/api/programs/:name/logs", programs_stop)
+	// 获取日志信息
+	r.GET("/api/logs", programs_log_get)
+
+	// 根据服务名称获取日志信息
+	r.GET("/api/logs/:name", programs_log_get)
+
+	// 获得具体信息
+	r.GET("/api/logs/:name/:id", programs_log_get)
 
 	// 获取该服务的日志存储状况
-	r.GET("/api/programs/:name/logs/status", programs_stop)
+	r.GET("/api/logs/status", programs_log_status)
 
 	// 根据天删除之前的日志信息
-	r.DELETE("/api/programs/:name/logs", programs_stop)
+	r.DELETE("/api/logs", programs_log_delete)
+
+	// 根据天删除之前的日志信息
+	r.DELETE("/api/logs/:date", programs_log_delete)
 
 
 	// 脚本管理管理
