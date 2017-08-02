@@ -1,22 +1,67 @@
-hash: 1fd7eeb54b99a2fd65e02447b1c23627dfbc0573499b3ac4d9433b926b02c923
-updated: 2017-08-02T16:44:45.381013377+08:00
+hash: b5ed1b29ae13e6cf5f6f671e8bb7c8550ba3d532b7a0fc8cb9560e218e45ccef
+updated: 2017-08-02T17:57:51.896213654+08:00
 imports:
+- name: github.com/fatedier/beego
+  version: f73c3692bbd70a83728cb59b2c0423ff95e4ecea
+  subpackages:
+  - logs
+- name: github.com/fatedier/frp
+  version: 066172e9c13945241ff114320689b0c9b6d20fbd
+  subpackages:
+  - utils/log
 - name: github.com/gin-contrib/sse
   version: 22d885f9ecc78bf4ee5d72b937e4bbcdc58e8cae
 - name: github.com/gin-gonic/gin
   version: d459835d2b077e44f7c9b453505ee29881d5d12d
+  subpackages:
+  - binding
+  - render
 - name: github.com/go-ini/ini
   version: d3de07a94d22b4a0972deb4b96d790c2c0ce8333
+- name: github.com/go-ole/go-ole
+  version: 085abb85892dc1949567b726dff00fa226c60c45
+  subpackages:
+  - oleutil
 - name: github.com/golang/protobuf
   version: 748d386b5c1ea99658fd69fe9f03991ce86a90c1
   subpackages:
   - proto
 - name: github.com/googollee/go-engine.io
   version: 80ae0e43aca17b4c5a6834999d0f2eaa16b9afda
+  subpackages:
+  - message
+  - parser
+  - polling
+  - transport
+  - websocket
 - name: github.com/googollee/go-socket.io
   version: 5447e71f36d394766bf855d5714a487596809f0d
+- name: github.com/gorilla/websocket
+  version: ea4d1f681babbce9545c9c5f3d5194a789c89f5b
 - name: github.com/jinzhu/gorm
   version: 5174cc5c242a728b435ea2be8a2f7f998e15429b
+- name: github.com/mattn/go-isatty
+  version: fc9e8d8ef48496124e79ae0df75490096eccf6fe
 - name: github.com/shirou/gopsutil
   version: aa0a3bce9d1f4efc710ed812f19f77851da2eedd
+  subpackages:
+  - cpu
+  - disk
+  - host
+  - internal/common
+  - mem
+  - net
+  - process
+- name: github.com/shirou/w32
+  version: bb4de0191aa41b5507caa14b0650cdbddcd9280b
+- name: github.com/StackExchange/wmi
+  version: ea383cf3ba6ec950874b8486cd72356d007c768f
+- name: github.com/ugorji/go
+  version: 5efa3251c7f7d05e5d9704a69a984ec9f1386a40
+  subpackages:
+  - codec
+- name: gopkg.in/go-playground/validator.v8
+  version: 5f1438d3fca68893a817e4a66806cea46a9e4ebf
+- name: gopkg.in/yaml.v2
+  version: 25c4ec802a7d637f88d584ab26798e94ad14c13b
 testImports: []

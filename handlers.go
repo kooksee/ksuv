@@ -14,6 +14,11 @@ func ping(c *gin.Context) {
 }
 
 func programs_post(c *gin.Context) {
+	program_name := c.Params.ByName("name")
+	println(program_name)
+	c.JSON(200, gin.H{
+		"message": program_name,
+	})
 }
 
 func programs_delete(c *gin.Context) {
@@ -40,23 +45,124 @@ func programs_get(c *gin.Context) {
 	})
 }
 
-func programs_status(c *gin.Context) {
-	program_name := c.Params.ByName("name")
-	println(program_name)
-	c.JSON(200, gin.H{
-		"message": program_name,
-	})
-}
-
-func programs_start(c *gin.Context) {
-	program_name := c.Params.ByName("name")
-	println(program_name)
-	c.JSON(200, gin.H{
-		"message": program_name,
-	})
-}
-
 func programs_stop(c *gin.Context) {
+	program_name := c.Params.ByName("name")
+	println(program_name)
+	c.JSON(200, gin.H{
+		"message": program_name,
+	})
+}
+
+func m_session_post(c *gin.Context) {
+	program_name := c.Params.ByName("name")
+	println(program_name)
+	c.JSON(200, gin.H{
+		"message": program_name,
+	})
+}
+
+func m_session_get(c *gin.Context) {
+	program_name := c.Params.ByName("name")
+	println(program_name)
+	c.JSON(200, gin.H{
+		"message": program_name,
+	})
+}
+
+func m_session_ping(c *gin.Context) {
+	program_name := c.Params.ByName("name")
+	println(program_name)
+	c.JSON(200, gin.H{
+		"message": program_name,
+	})
+}
+
+func session_get(c *gin.Context) {
+	program_name := c.Params.ByName("name")
+	println(program_name)
+	c.JSON(200, gin.H{
+		"message": program_name,
+	})
+}
+
+func m_session_delete(c *gin.Context) {
+	program_name := c.Params.ByName("name")
+	println(program_name)
+	c.JSON(200, gin.H{
+		"message": program_name,
+	})
+}
+
+func status_get(c *gin.Context) {
+	program_name := c.Params.ByName("name")
+	println(program_name)
+	c.JSON(200, gin.H{
+		"message": program_name,
+	})
+}
+
+func m_status_get(c *gin.Context) {
+	program_name := c.Params.ByName("name")
+	println(program_name)
+	c.JSON(200, gin.H{
+		"message": program_name,
+	})
+}
+
+func session_ping(c *gin.Context) {
+	program_name := c.Params.ByName("name")
+	println(program_name)
+	c.JSON(200, gin.H{
+		"message": program_name,
+	})
+}
+
+func log_get_by_id(c *gin.Context) {
+	program_name := c.Params.ByName("name")
+	println(program_name)
+	c.JSON(200, gin.H{
+		"message": program_name,
+	})
+}
+
+func session_delete(c *gin.Context) {
+	program_name := c.Params.ByName("name")
+	println(program_name)
+	c.JSON(200, gin.H{
+		"message": program_name,
+	})
+}
+
+func log_get_by_name(c *gin.Context) {
+	program_name := c.Params.ByName("name")
+	println(program_name)
+	c.JSON(200, gin.H{
+		"message": program_name,
+	})
+}
+
+func log_get(c *gin.Context) {
+	program_name := c.Params.ByName("name")
+	println(program_name)
+	c.JSON(200, gin.H{
+		"message": program_name,
+	})
+}
+func log_delete_by_date(c *gin.Context) {
+	program_name := c.Params.ByName("name")
+	println(program_name)
+	c.JSON(200, gin.H{
+		"message": program_name,
+	})
+}
+func log_delete(c *gin.Context) {
+	program_name := c.Params.ByName("name")
+	println(program_name)
+	c.JSON(200, gin.H{
+		"message": program_name,
+	})
+}
+func log_status(c *gin.Context) {
 	program_name := c.Params.ByName("name")
 	println(program_name)
 	c.JSON(200, gin.H{
