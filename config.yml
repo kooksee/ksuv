@@ -1,0 +1,13 @@
+debug: false
+dbpath: "~/.ksuv"
+server:
+  httpauth:
+    enabled: true
+    username: admin
+    password: "123456"
+  addr: :11313
+
+log:
+  level: "debug"
+  filepath: "~/.ksuv/log/app.log"
+  format: ""
