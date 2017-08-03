@@ -21,6 +21,7 @@ type application struct {
 	services map[string]interface{}
 	gin      *gin.Engine
 	cfg      Configuration
+
 }
 
 func NewApp() *application {

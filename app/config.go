@@ -22,6 +22,7 @@ func check(err error) {
 type Configuration struct {
 	Debug  bool `yaml:"debug"`
 	DbPath string `yaml:"dbpath"`
+	Email  string `yaml:"email"`
 	Server struct {
 		       HttpAuth struct {
 					Enabled  bool   `yaml:"enabled"`
