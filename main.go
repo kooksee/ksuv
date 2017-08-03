@@ -16,7 +16,7 @@ func main() {
 	//defer log.Uninit(log.InitFile("./log/app.log"))
 	//log.SetLevel(log.LvDEBUG)
 
-	app := ksuv.NewApp()
+	app := ksuv.GetApp()
 	app.InitMiddleware()
 	app.InitConfig(*cfg_path)
 	app.InitLog()

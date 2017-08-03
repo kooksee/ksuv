@@ -29,3 +29,5 @@ import:
 - package: github.com/asdine/storm
   version: ~1.0.1
 - package: github.com/go-yaml/yaml
+- package: github.com/boltdb/bolt
+  version: ~1.3.1

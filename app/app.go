@@ -6,6 +6,7 @@ import (
 	"github.com/mkideal/log"
 	"io/ioutil"
 	"gopkg.in/yaml.v2"
+	"github.com/kooksee/ksuv/db"
 )
 
 var (
@@ -13,22 +14,11 @@ var (
 	instance *application
 )
 
-type config struct {
-
-}
-
 type application struct {
 	services map[string]interface{}
 	gin      *gin.Engine
 	cfg      Configuration
-
-}
-
-func NewApp() *application {
-	return &application{
-		gin:gin.New(),
-	}
-
+	DB       *db.DB
 }
 
 func (this *application) SetService(name string, service interface{}) {
@@ -50,7 +40,11 @@ func (this *application)Run() {
 
 func GetApp() *application {
 	once.Do(func() {
-		instance = &application{services: make(map[string]interface{})}
+		instance = &application{
+			gin:gin.New(),
+			services: make(map[string]interface{}),
+			cfg: &Configuration{},
+		}
 	})
 
 	return instance
@@ -69,7 +63,8 @@ func (this *application)InitConfig(cfg_path string) {
 	}
 }
 
-func (this *application)InitDb(map[string]string) {
+func (this *application)InitDB() {
+	this.DB.InitDB(this.cfg.DbPath)
 }
 
 func (this *application)InitLog() {

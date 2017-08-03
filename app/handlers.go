@@ -1,4 +1,5 @@
 package app
+
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/googollee/go-socket.io"
@@ -6,10 +7,9 @@ import (
 	"log"
 )
 
+// 检测服务存活
 func ping(c *gin.Context) {
-	c.JSON(200, gin.H{
-		"message": "pong",
-	})
+	c.String(200, "pong")
 }
 
 func programs_post(c *gin.Context) {
