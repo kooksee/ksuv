@@ -4,19 +4,49 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/googollee/go-socket.io"
 	"fmt"
-	"log"
+	"net/http"
+	"github.com/json-iterator/go"
 )
+
+var app = GetApp()
+
 
 // 检测服务存活
 func ping(c *gin.Context) {
-	c.String(200, "pong")
+	c.String(http.StatusOK, "pong")
 }
 
+// 添加服务资源信息
 func programs_post(c *gin.Context) {
-	program_name := c.Params.ByName("name")
-	println(program_name)
-	c.JSON(200, gin.H{
-		"message": program_name,
+	log := app.Log
+
+	d, err := c.GetRawData()
+	if err != nil {
+		log.Error(err.Error())
+	}
+	fmt.Println(string(d))
+
+	pfs := []ProgramsForm{}
+	if err = jsoniter.Unmarshal(d, &pfs); err != nil {
+		log.Error(err.Error())
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"message": "",
+		})
+	}
+
+	for i := 0; i <= len(pfs); i++ {
+		pf := pfs[i]
+		err = app.DB.SavePrograms(pf.Name, pf.CurrentDir, pf.Command, pf.CallBack, pf.AutoStart, pf.NumRetry, pf.Instances)
+		if err != nil {
+			log.Error(err.Error())
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"message": "",
+			})
+		}
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"message": "",
 	})
 }
 
@@ -170,7 +200,8 @@ func log_status(c *gin.Context) {
 }
 
 func socketio_conn(so socketio.Socket) {
-	log.Println("on connection")
+	log := app.Log
+	log.Info("on connection")
 	so.Join("chat")
 	so.On("chat message", func(msg string) {
 		m := make(map[string]interface{})
@@ -183,9 +214,9 @@ func socketio_conn(so socketio.Socket) {
 		b["u-a"] = "中文内容" //这个不能是中文
 		m["b-c"] = b
 		e = so.Emit("cn2222", m)
-		log.Println(e)
+		log.Info(e.Error())
 
-		log.Println("emit:", so.Emit("chat message", msg))
+		log.Info("emit:", so.Emit("chat message", msg))
 		so.BroadcastTo("chat", "chat message", msg)
 	})
 	// Socket.io acknowledgement example
@@ -195,10 +226,11 @@ func socketio_conn(so socketio.Socket) {
 		return msg
 	})
 	so.On("disconnection", func() {
-		log.Println("on disconnect")
+		log.Info("on disconnect")
 	})
 }
 
 func socketio_error(so socketio.Socket, err error) {
-	log.Println("error:", err)
+	log := app.Log
+	log.Info("error:", err)
 }

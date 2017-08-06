@@ -1,5 +1,5 @@
-hash: 999487260fc80240df5af6a954f5d282aed4fc33f1a7a0ee27a18ccfff9d93e8
-updated: 2017-08-03T11:35:54.217370759+08:00
+hash: f863da040ef2e721867cc05577d2dfda820c67c659becbffbbdd44510e68f70e
+updated: 2017-08-05T14:39:30.716082472+08:00
 imports:
 - name: github.com/asdine/storm
   version: e35194f772fef1442e9f6c8526a6c115ca729638
@@ -45,9 +45,11 @@ imports:
 - name: github.com/jinzhu/gorm
   version: 5174cc5c242a728b435ea2be8a2f7f998e15429b
 - name: github.com/json-iterator/go
-  version: abbd16da6c9d374cb5da8907ec2355bd3571f80e
+  version: 1cfa233923ea407d7f0c70d7a7d835030678e788
 - name: github.com/jtolds/gls
   version: 77f18212c9c7edc9bd6a33d383a7b545ce62f064
+- name: github.com/manucorporat/stats
+  version: 8f2d6ace262eba462e9beb552382c98be51d807b
 - name: github.com/mattn/go-isatty
   version: fc9e8d8ef48496124e79ae0df75490096eccf6fe
 - name: github.com/mkideal/log
@@ -60,6 +62,8 @@ imports:
   subpackages:
   - disk
   - internal/common
+- name: github.com/sirupsen/logrus
+  version: a3f95b5c423586578a4e099b11a46c2479628cac
 - name: github.com/smartystreets/goconvey
   version: d4c757aa9afd1e2fc1832aaab209b5794eb336e1
   subpackages:
