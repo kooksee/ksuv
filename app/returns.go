@@ -47,7 +47,7 @@ func NewErrReturns(code, message string) *Returns {
 	return &Returns{
 		Code:    code,
 		Message: message,
-		Alert:   STATUS[code + "Msg"],
+		Alert:   STATUS[code],
 	}
 }
 
@@ -56,10 +56,6 @@ func NewDataReturns(data interface{}) *Returns {
 }
 
 func NewListReturns(data interface{}) *Returns {
-	// if data == nil { // 有 bug， []*pb.Share(nil) != nil
-	// 	data = []interface{}{}
-	// }
-	// return &Returns{Code: errs.Ok, Data: data}
 
 	if data == nil {
 		return &Returns{Code: STATUS.Ok, Data: []interface{}{}}

@@ -5,12 +5,13 @@ import (
 	"github.com/googollee/go-socket.io"
 	"fmt"
 	"net/http"
-	"github.com/json-iterator/go"
-
+	bs "github.com/kooksee/ksuv/app/bussiness"
 )
 
-var app = GetApp()
-
+var (
+	app = GetApp()
+	log = app.Log
+)
 
 // 检测服务存活
 func ping(c *gin.Context) {
@@ -19,36 +20,18 @@ func ping(c *gin.Context) {
 
 // 添加服务资源信息
 func programs_post(c *gin.Context) {
-	log := app.Log
 
 	d, err := c.GetRawData()
 	if err != nil {
 		log.Error(err.Error())
-	}
-	fmt.Println(string(d))
-
-	pfs := []ProgramsForm{}
-	if err = jsoniter.Unmarshal(d, &pfs); err != nil {
-		log.Error(err.Error())
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"message": "",
+		c.JSON(http.StatusInternalServerError, Returns{
+			Code:STATUS.ErrInMaintain,
+			Message:"参数解析失败",
 		})
 	}
 
-	for i := 0; i <= len(pfs); i++ {
-		pf := pfs[i]
-		err = app.DB.SavePrograms(pf.Name, pf.CurrentDir, pf.Command, pf.CallBack, pf.AutoStart, pf.NumRetry, pf.Instances)
-		if err != nil {
-			log.Error(err.Error())
-			c.JSON(http.StatusInternalServerError, gin.H{
-				"message": "",
-			})
-		}
-	}
-
-	c.JSON(http.StatusOK, gin.H{
-		"message": "",
-	})
+	res, err := bs.Programs_post(d)
+	c.JSON(http.StatusOK, res)
 }
 
 func programs_delete(c *gin.Context) {
