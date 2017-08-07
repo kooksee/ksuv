@@ -1,5 +1,5 @@
-hash: f863da040ef2e721867cc05577d2dfda820c67c659becbffbbdd44510e68f70e
-updated: 2017-08-05T14:39:30.716082472+08:00
+hash: 29639ee3c6cf5c2080c177562b3c7c5019ebc01cfee28b10a8a5a3cb110b6a31
+updated: 2017-08-07T16:28:17.395626633+08:00
 imports:
 - name: github.com/asdine/storm
   version: e35194f772fef1442e9f6c8526a6c115ca729638
@@ -48,15 +48,14 @@ imports:
   version: 1cfa233923ea407d7f0c70d7a7d835030678e788
 - name: github.com/jtolds/gls
   version: 77f18212c9c7edc9bd6a33d383a7b545ce62f064
+- name: github.com/mailru/easyjson
+  version: 2f5df55504ebc322e4d52d34df6a1f5b503bf26d
 - name: github.com/manucorporat/stats
   version: 8f2d6ace262eba462e9beb552382c98be51d807b
 - name: github.com/mattn/go-isatty
   version: fc9e8d8ef48496124e79ae0df75490096eccf6fe
 - name: github.com/mkideal/log
   version: ed2d8b1b0e09d73946442f0ac55559edf9c292bc
-  subpackages:
-  - logger
-  - provider
 - name: github.com/shirou/gopsutil
   version: 114c78c777eb86b58e40910cbd3fc451829c366d
   subpackages:
