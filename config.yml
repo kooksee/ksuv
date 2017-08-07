@@ -1,5 +1,5 @@
 debug: "true"
-dbpath: "~/.ksuv"
+dbpath: "./dbpath"
 server:
   httpauth:
     enabled: "true"
@@ -9,5 +9,5 @@ server:
 
 log:
   level: "debug"
-  filepath: "~/.ksuv/log/app.log"
+  filepath: "./dbpath/log/app.log"
   format: ""

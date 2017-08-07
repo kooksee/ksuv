@@ -1,4 +1,4 @@
-package kapp
+package utils
 
 import (
 	"errors"

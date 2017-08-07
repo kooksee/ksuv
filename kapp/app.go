@@ -9,6 +9,7 @@ import (
 	"github.com/asdine/storm"
 	"github.com/boltdb/bolt"
 	"time"
+	"fmt"
 )
 
 var (
@@ -58,10 +59,12 @@ func (this *application)InitConfig(cfg_path string) {
 
 // 初始化数据库
 func (this *application)InitDB() {
-	if !IsDir(this.Cfg.DbPath) {
-		os.MkdirAll(this.Cfg.DbPath, 0600)
+	if err := os.MkdirAll(this.Cfg.DbPath, 0777); err != nil {
+		fmt.Println(err)
+		panic(err)
 	}
-	db, err := storm.Open(this.Cfg.DbPath+"/ksuv.db", storm.BoltOptions(0600, &bolt.Options{Timeout: 1 * time.Second}))
+
+	db, err := storm.Open(this.Cfg.DbPath + "/ksuv.db", storm.BoltOptions(0777, &bolt.Options{Timeout: 1 * time.Second}))
 	if err != nil {
 		panic(err)
 	}
