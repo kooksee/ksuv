@@ -3,7 +3,6 @@ package kapp
 import (
 	"time"
 	"github.com/asdine/storm"
-	"fmt"
 )
 
 // programs数据

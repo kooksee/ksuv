@@ -8,6 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"fmt"
 	"github.com/manucorporat/stats"
+	"github.com/kooksee/ksuv/utils"
 )
 
 var (
@@ -36,6 +37,8 @@ func main() {
 	//gin.SetMode(gin.ReleaseMode)
 
 	flag.Parse()
+
+	fmt.Println(utils.GetLocalIP())
 
 	k := kapp.GetApp()
 	k.InitConfig(*cfg_path)
